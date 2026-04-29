@@ -35,27 +35,37 @@
     * Resolucion de conflictos de historiales mediante `pull --allow-unrelated-histories`.
     * Primer `push` exitoso al repositorio remoto.
 
----
+### [2026-04-28] - Fase de Cimentación: Reestructuración y Entorno
 
-## 4. Estatus Actual del Proyecto
-* **Estado:** 🟢 Entorno de desarrollo operativo.
-* **Plataforma:** Termux (Host) / QEMU (Testing) / GitHub (Sincronizacion).
-* **Dependencias instaladas:** `httpx`, `python-dotenv`.
-
----
-
-## 5. Pendientes y Observaciones
-### Pendientes Inmediatos (Backlog):
-- [ ] Configurar el script de lanzamiento de QEMU (`qemu-run.sh`) con montaje de carpetas.
-- [ ] Crear el `docker-compose.yml` base para los servicios de PocketBase y Gitea.
-- [ ] Desarrollar script de prueba para validacion de flujo de datos inicial.
-
-### Observaciones Tecnicas:
-* Se opto por peticiones directas via `httpx` para optimizar el consumo de recursos y compatibilidad en el entorno movil.
-* El repositorio local se renombro satisfactoriamente eliminando acentos para asegurar la integridad de las rutas en Git.
+* **Reorganización del Repositorio:** Se implementó una estructura de directorios más limpia, moviendo la documentación a `docs/` y los scripts de prueba a `scripts/`.
+* **Gestión de Dependencias:** Se inicializó formalmente el entorno virtual (`venv`) y se creó el archivo `requirements.txt` incluyendo `httpx` y `python-dotenv`.
+* **Control de Versiones:** Se configuró `.gitignore` para proteger archivos sensibles (`.env`), archivos de sistema de QEMU (`*.qcow2`) y el entorno virtual.
+* **Automatización de Terminal:** Optimización de funciones en `.bashrc` para soportar la sincronización de archivos entre Markor y la nueva estructura de carpetas mediante el uso de `basename` y bucles `for`.
 
 ---
 
-## 6. Futuros Pasos
-* Definicion de variables de entorno finales en `.env`.
-* Pruebas de carga inicial en QEMU para validar consumo de RAM.
+## 4. Estado de la Infraestructura
+
+* **Repositorio Local:** Configurado en Termux bajo `~/proyectos/vinculo-autonomo-comunitario`.
+* **Estructura de Carpetas:** * `/docs`: Documentación y Journals.
+    * `/scripts`: Utilidades y pruebas de conexión.
+    * `/docker`: (Pendiente) Configuración de microservicios.
+* **Entorno Python:** `venv` activo con `httpx` y `python-dotenv` instalados.
+* **Conectividad:** Scripts de prueba validados para futuras integraciones con PocketBase/Gotify.
+
+---
+
+## 5. Próximos Pasos Inmediatos
+
+1.  **Configuración de Docker:** Redactar el `docker-compose.yml` para desplegar la instancia local de PocketBase.
+2.  **Variables de Entorno:** Crear el archivo `.env` local (protegido por gitignore) con las claves necesarias.
+3.  **Orquestador Inicial:** Comenzar el desarrollo de `main.py` en `src/` para gestionar el flujo de datos.
+4.  **Pruebas en QEMU:** Validar la portabilidad de los scripts dentro de la máquina virtual Alpine.
+
+---
+
+## 6. Glosario y Referencias Rápidas
+
+* **v-pull / v-push:** Funciones personalizadas en Bash para sincronizar el cerebro (Markor) con el código (Termux).
+* **lt:** Alias de `tree` configurado para ignorar carpetas pesadas y mostrar archivos ocultos.
+* **Requerimientos:** `pip install -r requirements.txt` para replicar el entorno en cualquier dispositivo (ej. Raspberry Pi).
